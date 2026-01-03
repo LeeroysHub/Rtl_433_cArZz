@@ -466,11 +466,12 @@ static int rtltcp_server_stop(rtltcp_server_t *srv)
 
     print_logf(LOG_NOTICE, "rtl_tcp server", "Stopping rtl_tcp server...");
 
+    //THIS DOESN'T COMPILE ON ANDROID
     // thread is likely blocking in accept, recv, or send
-    int r = pthread_cancel(srv->thread);
+    /* int r = pthread_cancel(srv->thread);
     if (r) {
         fprintf(stderr, "%s: error in pthread_cancel, rc: %d\n", __func__, r);
-    }
+    }*/
     pthread_mutex_destroy(&srv->lock);
     pthread_cond_destroy(&srv->cond);
 
