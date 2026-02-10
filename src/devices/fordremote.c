@@ -163,7 +163,7 @@ static int fordremote_callback(r_device *decoder, bitbuffer_t *bitbuffer)
 
     decode_ford_v0(final, bs_crc, &serial, &button, &count);
     
-    char key_str[17];
+     char key_str[17];
     snprintf(key_str, sizeof(key_str), "%08lX", final);
     char serial_str[9];
     snprintf(serial_str, sizeof(serial_str), "%08X", serial);
@@ -177,9 +177,13 @@ static int fordremote_callback(r_device *decoder, bitbuffer_t *bitbuffer)
             "id",              "serial",        DATA_STRING,    serial_str,
             "key",              "",             DATA_STRING,    key_str,
             "btn",              "",   DATA_FORMAT, "%02X", DATA_INT, (unsigned)(button),
-            "count",            "",             DATA_STRING,    count_str,
+            "count",            "",   DATA_STRING,  count_str,
             "bs",               "",   DATA_FORMAT, "%02X", DATA_INT, (unsigned)(bs_crc >> 8),
             "crc",              "",   DATA_FORMAT, "%02X", DATA_INT, (unsigned)(bs_crc & 0xFF),
+            "serial_dec",       "",   DATA_FORMAT, "%u", DATA_INT, (unsigned)(serial),
+            "count_dec",        "",   DATA_FORMAT, "%u", DATA_INT, (unsigned)(count),
+            "bs_dec",           "",   DATA_FORMAT, "%u", DATA_INT, (unsigned)(bs_crc >> 8),
+            "crc_dec",          "",   DATA_FORMAT, "%u", DATA_INT, (unsigned)(bs_crc & 0xFF),
             NULL);
     /* clang-format on */
     
@@ -195,6 +199,10 @@ static char const *const output_fields[] = {
         "count",
         "bs",
         "crc",
+        "serial_dec",
+        "count_dec",
+        "bs_dec",
+        "crc_dec",
         NULL,
 };
 
